@@ -3,6 +3,11 @@ variable "bucket-name" {
   default     = "moz-test-bucket-eu"
 }
 
+variable "state_file" {
+  description = "the name of state bucket storing the state"
+  default     = "moz-state-file"
+}
+
 variable "region" {
   description = "aws region"
   default     = "eu-west-1"

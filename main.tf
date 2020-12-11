@@ -4,7 +4,16 @@
 provider "aws" {
   region    = var.region
   #profile  = "sbg-qp"
-  #version  = "~> 3.0"
+  version  = "~> 3.0"
+}
+
+
+terraform {
+  backend "s3" {
+    bucket = "moz-state-file"
+    key    = "state"
+    region = "eu-west-1"
+  }
 }
 
 resource "aws_s3_bucket" "b" {
