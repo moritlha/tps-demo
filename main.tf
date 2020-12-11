@@ -2,10 +2,21 @@
 #https://github.com/rewindio/aws-cloudfront-auto-invalidator
 #https://stackoverflow.com/questions/61710926/how-to-edit-aws-cloudfront-setting-to-edit-origin-and-origin-group-settings-usin/61712520#61712520
 provider "aws" {
-  region = "eu-west-1"
-  #profile = "sbg-qp"
-  #version = "~> 3.0"
+  region    = var.region
+  #profile  = "sbg-qp"
+  #version  = "~> 3.0"
 }
+
+resource "aws_s3_bucket" "b" {
+  bucket = var.bucket-name
+  acl    = "private"
+
+  tags = {
+    Name = "My bucket"
+    Environment = var.env
+  }
+}
+
 
 locals {
   s3_origin_id = "myS3Origin"
@@ -102,7 +113,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   tags = {
-    Environment = "PROD"
+    Environment = var.env
   }
 
   viewer_certificate {
